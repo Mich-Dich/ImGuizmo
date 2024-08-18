@@ -39,6 +39,10 @@
 #define _freea(x)
 #endif
 
+// ==================== DEV-ONLY ====================
+#include <iostream>
+// ==================== DEV-ONLY ==================== 
+
 // includes patches for multiview from
 // https://github.com/CedricGuillemet/ImGuizmo/issues/15
 
@@ -2504,22 +2508,19 @@ namespace IMGUIZMO_NAMESPACE
 
    bool Manipulate(const float* view, const float* projection, OPERATION operation, MODE mode, float* matrix, float* deltaMatrix, const float* snap, const float* localBounds, const float* boundsSnap)
    {
+
       // Scale is always local or matrix will be skewed when applying world scale or oriented matrix
       ComputeContext(view, projection, matrix, (operation & SCALE) ? LOCAL : mode);
 
       // set delta to identity
       if (deltaMatrix)
-      {
          ((matrix_t*)deltaMatrix)->SetToIdentity();
-      }
 
       // behind camera
       vec_t camSpacePosition;
       camSpacePosition.TransformPoint(makeVect(0.f, 0.f, 0.f), gContext.mMVP);
-      if (!gContext.mIsOrthographic && camSpacePosition.z < 0.001f && !gContext.mbUsing)
-      {
+      if (!gContext.mIsOrthographic && camSpacePosition.z <= -0.1f && !gContext.mbUsing)
          return false;
-      }
 
       // --
       int type = MT_NONE;
