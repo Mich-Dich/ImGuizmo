@@ -105,19 +105,22 @@ void EditTransform(const Camera& camera, matrix_t& matrix)
 #pragma once
 
 #ifdef USE_IMGUI_API
-#include "imconfig.h"
+   #include "imconfig.h"
 #endif
+
 #ifndef IMGUI_API
-#define IMGUI_API
+   #define IMGUI_API
 #endif
 
 #ifndef IMGUIZMO_NAMESPACE
-#define IMGUIZMO_NAMESPACE ImGuizmo
+   #define IMGUIZMO_NAMESPACE ImGuizmo
 #endif
 
-
-
-#define PUBLIC_API __declspec(dllexport)
+#if defined(PFF_PLATFORM_WINDOWS)
+   #define PUBLIC_API __declspec(dllexport)
+#else
+   #define PUBLIC_API
+#endif
 
 namespace IMGUIZMO_NAMESPACE {
 
