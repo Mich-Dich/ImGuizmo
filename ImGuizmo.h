@@ -116,7 +116,7 @@ void EditTransform(const Camera& camera, matrix_t& matrix)
    #define IMGUIZMO_NAMESPACE ImGuizmo
 #endif
 
-#if defined(PFF_PLATFORM_WINDOWS)
+#if defined(GLT_PLATFORM_WINDOWS)
    #define PUBLIC_API __declspec(dllexport)
 #else
    #define PUBLIC_API
